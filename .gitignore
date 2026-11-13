@@ -1,0 +1,9 @@
+# Supabase CLI local state
+supabase/.temp/
+supabase/.branches/
+supabase/snippets/
+
+# Secrets (OAuth keys, SMTP, etc. later)
+.env
+.env.*
+!.env.example
