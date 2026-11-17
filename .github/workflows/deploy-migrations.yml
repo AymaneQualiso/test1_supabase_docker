@@ -3,7 +3,10 @@ name: Deploy migrations
 on:
   push:
     branches: [develop, master]
-    paths: ['supabase/migrations/**']   # only run when migrations change
+    # paths: ['supabase/migrations/**']   # only run when migrations change
+    paths:
+      - 'supabase/migrations/**'
+      - '.github/workflows/deploy-migrations.yml'
   workflow_dispatch:                    # allow a manual run from the Actions tab
 
 jobs:
@@ -23,6 +26,6 @@ jobs:
 
       - run: supabase link --project-ref ${{ secrets.PROJECT_ID }}
 
-      - run: supabase db push --remote --dry-run   # visible in logs: what will run
+      - run: supabase db push --remote --yes   # visible in logs: what will run
 
       - run: supabase db push --remote
