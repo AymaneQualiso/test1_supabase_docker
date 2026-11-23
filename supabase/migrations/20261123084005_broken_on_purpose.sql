@@ -1,1 +1,0 @@
-create table oops (id int,);
