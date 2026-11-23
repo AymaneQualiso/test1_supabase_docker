@@ -1,0 +1,20 @@
+name: Validate migrations
+
+on:
+  pull_request:
+    branches: [develop, master]   # PRs targeting these branches
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 3.2.0   # same as the deploy workflow
+
+      # Starts only Postgres (not Auth/Storage/Studio): faster.
+      # On a fresh database it applies ALL migrations + seed.sql.
+      # If any migration has an error, this step fails.
+      - run: supabase db start
