@@ -1,0 +1,1 @@
+drop trigger user_companies_set_updated_at on public.user_companies;
