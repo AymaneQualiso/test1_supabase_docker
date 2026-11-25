@@ -1,4 +1,4 @@
-﻿
+
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export type Database = {
@@ -83,6 +83,20 @@ isOneToOne: false
                   Relationships: [
                     
                   ]
+                },"profiles": {
+                  Row: {
+                    "created_at": string,"full_name": string,"id": string,"is_active": boolean,"role": Database["public"]['Enums']["app_role"],"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"full_name": string,"id": string,"is_active"?: boolean,"role"?: Database["public"]['Enums']["app_role"],"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"full_name"?: string,"id"?: string,"is_active"?: boolean,"role"?: Database["public"]['Enums']["app_role"],"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"societe_marques": {
                   Row: {
                     "company_id": number,"created_at": string,"deleted_at": string | null,"id": number,"is_active": boolean,"libelle": string,"updated_at": string
@@ -103,6 +117,32 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"user_companies": {
+                  Row: {
+                    "company_id": number,"created_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "company_id": number,"created_at"?: string,"user_id": string
+                  }
+                  Update: {
+                    "company_id"?: number,"created_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "user_companies_company_id_fkey"
+      columns: ["company_id"]
+isOneToOne: false
+      referencedRelation: "companies"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "user_companies_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["id"]
+    }
+                  ]
                 }
           }
           Views: {
@@ -112,7 +152,7 @@ isOneToOne: false
             [_ in never]: never
           }
           Enums: {
-            [_ in never]: never
+            "app_role": "admin"|"manager"|"viewer"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -232,7 +272,7 @@ export const Constants = {
           }
         },"public": {
           Enums: {
-            
+            "app_role": ["admin", "manager", "viewer"]
           }
         }
 } as const
